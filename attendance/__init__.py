@@ -1,0 +1,1 @@
+default_config_app = '.apps.ModelConfig'

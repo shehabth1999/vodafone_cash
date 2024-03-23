@@ -1,0 +1,12 @@
+*.pyc
+*.pyo
+.env
+
+
+
+**/__pycache__/
+**/migrations/
+
+# Ignore SQLite database file
+db.sqlite3
+.vercel
