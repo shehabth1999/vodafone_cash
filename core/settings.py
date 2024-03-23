@@ -153,7 +153,8 @@ INSTALLED_APPS = [
     'authentication',
     'social_auth',
     'institution',
-    'vcash.apps.VcashConfig'
+    'vcash.apps.VcashConfig',
+    'customers.apps.CustomersConfig',
 ]
 # endregion APPS
 
@@ -254,7 +255,7 @@ JET_SIDE_MENU_ITEMS = [  # A list of application or custom item dicts
 # region Security
 AUTHENTICATION_BACKENDS = ( 
     'django.contrib.auth.backends.AllowAllUsersModelBackend', 
-    'authentication.backends.CaseInsensitiveModelBackend',
+    # 'authentication.backends.CaseInsensitiveModelBackend',
     )
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -332,24 +333,24 @@ TEMPLATES = [
 # }
 
 # POSTGRES ---------------------------------------------
-# DATABASES = {
-#     'default': {
-#         'ENGINE'    : 'django.db.backends.postgresql_psycopg2',
-#         'NAME'      : 'soliel',
-#         'USER'      : 'root',
-#         'PASSWORD'  : 'm195825735',
-#         'HOST'      : 'localhost',
-#         'PORT'      : '5432',
-#     }
-# }
-
-# SQLITE ---------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE'    : 'django.db.backends.postgresql_psycopg2',
+        'NAME'      : 'hekfzpkk',
+        'USER'      : 'hekfzpkk',
+        'PASSWORD'  : 'BQy_sfaSL3uXg9h7SU5HS3_miSDcI-ET',
+        'HOST'      : 'surus.db.elephantsql.com',
+        'PORT'      : '5432',
     }
 }
+
+# SQLITE ---------------------------------------------
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 # endregion Database
 
 # region Test

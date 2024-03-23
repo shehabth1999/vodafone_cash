@@ -6,6 +6,8 @@ from authentication.models import User
 # from customers.models import MandopInfo
 from django.utils import timezone
 from django.db.models.signals import pre_save,post_save
+from django.core.exceptions import ValidationError
+from customers.models import Customer
 
 class Device(models.Model):
     name = models.CharField(max_length=45, blank=True, null=True)
@@ -16,6 +18,11 @@ class Device(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+    def clean(self):
+        super().clean()
+        if self.user.max_device_number <= Device.objects.filter(user=self.user).count():
+            raise ValidationError(f"Max device number must be {self.user.max_device_number} ")
 
     class Meta:
         managed = True
@@ -60,7 +67,7 @@ class TransactionsCash(models.Model):
     device      = models.ForeignKey(Device, models.SET_NULL,null=True)
     sim         = models.ForeignKey(Sim, models.SET_NULL,null=True)
     user        = models.ForeignKey(User,related_name="TransactionsCash.Account+", on_delete = models.SET_NULL,null=True)
-    customer    = models.CharField(max_length=45)
+    customer    = models.ForeignKey(Customer, on_delete=models.CASCADE)
     value       = models.FloatField()
     rest        = models.FloatField(blank=True, null=True)
     operationno = models.CharField(max_length=100, blank=True, null=True)  

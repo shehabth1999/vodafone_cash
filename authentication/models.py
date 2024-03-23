@@ -37,17 +37,24 @@ AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google',
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=255, unique=True, db_index=True)
-    email = models.EmailField(max_length=255, unique=True, db_index=True)
+    username            = models.CharField(max_length=255, unique=True, db_index=True)
+    email               = models.EmailField(max_length=255, unique=True, db_index=True)
+
+    max_device_number   = models.PositiveSmallIntegerField(default=5)
+    max_customer_number     = models.PositiveSmallIntegerField(default=20)
+    supervisor          = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='supervised_users')
+
     
-    total_payments = models.IntegerField(default=0)
-    date_of_birth = models.DateTimeField(max_length=30)
+    total_payments      = models.IntegerField(default=0)
+    date_of_birth       = models.DateTimeField(max_length=30, null=True)
     
-    is_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    is_verified         = models.BooleanField(default=False)
+    is_active           = models.BooleanField(default=True)
+    is_staff            = models.BooleanField(default=False)
+
+    updated_at          = models.DateTimeField(auto_now=True)
+    created_at          = models.DateTimeField(auto_now_add=True)
+
     auth_provider = models.CharField(
         max_length=255, blank=False,
         null=False, default=AUTH_PROVIDERS.get('email'))
