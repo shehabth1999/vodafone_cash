@@ -83,37 +83,37 @@ class TransactionsCash(models.Model):
 
     def __str__(self):return str(self.value)
 
-    def save(self, *args, **kwargs):
-        if not self._state.adding and (self.creator_id != self._loaded_values['creator_id']):
-            raise ValueError("Updating the value of creator isn't allowed")
+    # def save(self, *args, **kwargs):
+    #     if not self._state.adding and (self.creator_id != self._loaded_values['creator_id']):
+    #         raise ValueError("Updating the value of creator isn't allowed")
 
-        obj = TransactionsCash.objects.all().first()
-        # print("last id",obj.id)
+    #     obj = TransactionsCash.objects.all().first()
+    #     # print("last id",obj.id)
 
-        isSameData = self.device == obj.device and \
-        self.sim == obj.sim and \
-        self.user == obj.user and \
-        self.customer == obj.customer and \
-        self.value == obj.value and \
-        self.note == obj.note and \
-        self.isSend == obj.isSend
+    #     isSameData = self.device == obj.device and \
+    #     self.sim == obj.sim and \
+    #     self.user == obj.user and \
+    #     self.customer == obj.customer and \
+    #     self.value == obj.value and \
+    #     self.note == obj.note and \
+    #     self.isSend == obj.isSend
 
-        datetimeLastData = obj.datetime 
-        datetimeCurrentData = self.datetime 
+    #     datetimeLastData = obj.datetime 
+    #     datetimeCurrentData = self.datetime 
         
-        if isSameData == False: 
-            super().save(*args, **kwargs)
-            # print(" not same "*5)
-            return
-        else:
-            if  (datetimeCurrentData - datetimeLastData ).total_seconds() > 30 :
-                # Save Action
-                super().save(*args, **kwargs)
-                # print((datetimeCurrentData - datetimeLastData ).total_seconds() )
-                # print(" encrese "*5)
-                return
+    #     if isSameData == False: 
+    #         super().save(*args, **kwargs)
+    #         # print(" not same "*5)
+    #         return
+    #     else:
+    #         if  (datetimeCurrentData - datetimeLastData ).total_seconds() > 30 :
+    #             # Save Action
+    #             super().save(*args, **kwargs)
+    #             # print((datetimeCurrentData - datetimeLastData ).total_seconds() )
+    #             # print(" encrese "*5)
+    #             return
 
-        # print(" repeated "*5)
+    #     # print(" repeated "*5)
 
     class Meta:
         managed = True

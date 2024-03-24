@@ -20,6 +20,7 @@ from django.urls import reverse
 from .utils import Util
 from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
+from rest_framework.permissions import AllowAny
 import os
 
 
@@ -77,7 +78,8 @@ class VerifyEmail(views.APIView):
 
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
-
+    authentication_classes = []
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
