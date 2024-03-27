@@ -39,9 +39,7 @@ AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google',
 class User(AbstractBaseUser, PermissionsMixin):
     username            = models.CharField(max_length=255, unique=True, db_index=True)
     email               = models.EmailField(max_length=255, unique=True, db_index=True)
-
-    max_device_number   = models.PositiveSmallIntegerField(default=5)
-    max_customer_number     = models.PositiveSmallIntegerField(default=20)
+    is_supervisor       = models.BooleanField(default=False)
     supervisor          = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='supervised_users')
 
     

@@ -35,7 +35,7 @@ urlpatterns = [
     path('social_auth/',    include('social_auth.urls'),    name="social_auth"),
     path('institution/',    include('institution.urls'),    name="institution"),
 
-    # path('customers/',      include('customers.urls'),    name="customers"),
+    path('customers/',      include('customers.urls'),    name="customers"),
     path('vcash/',          include('vcash.urls'),    name="vcash"),
 ]
 
